@@ -755,11 +755,11 @@ function TurnIn(TableName,MaxArmoryValue)
     end
     local lastShopType = nil
     local LastIconShopType = nil
-    local NpcName = "Sabina"
+    local NpcName = "サビーナ"
     if TableName == SabinaTable then
-        NpcName = "Sabina"
+        NpcName = "サビーナ"
     elseif TableName == GelfradusTable then
-        NpcName = "Gelfradus"
+        NpcName = "ゲルフラダス"
     end
         
 
@@ -900,7 +900,7 @@ function GcDelivero()
         yield("/wait 0.1")
         if IsInZone(129) then -- Limsa Lower
             LogInfo("[IdyllshireTurnin] Currently in Limsa Lower!")
-            yield("/target Aetheryte")
+            yield("/target エーテライト")
             yield("/wait 0.1")
             AetheryteX = GetTargetRawXPos()
             AetheryteY = GetTargetRawYPos()
@@ -939,7 +939,7 @@ function MountUp()
             if GetCharacterCondition(27) then
                 yield("/wait 2")
             else
-                yield('/gaction "mount roulette"')
+                yield('/gaction "マウント・ルーレット"')
             end
         end
     else
@@ -948,8 +948,8 @@ function MountUp()
 end
 
 function SummoningBellSell()
-    yield("/target Summoning Bell")
-    if GetTargetName() == "Summoning Bell" then
+    yield("/target 呼び鈴")
+    if GetTargetName() == "呼び鈴" then
         yield("/wait 0.1")
         yield("/interact")
     else
@@ -957,7 +957,7 @@ function SummoningBellSell()
     end
     while TotalExchangeItem > 0 do
         if not IsAddonReady("InventoryRetainer") then
-            yield("/target Summoning Bell")
+            yield("/target 呼び鈴")
             yield("/wait 0.1")
             yield("/interact")
         end

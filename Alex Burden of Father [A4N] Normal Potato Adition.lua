@@ -47,7 +47,7 @@
     **************
   --]] 
   
-  HowManyLoops = 10
+  HowManyLoops = true
   -- true means infinite loops.
   -- numbers are loop numbers.
   
@@ -59,7 +59,7 @@
   -- true means script will use AutoRetainer.
   -- false means it will continue even if your retainer is ready.
   
-  SelfRepair = false
+  SelfRepair = true
   -- use this if you are able to repair your equipment.
   NpcRepair = false
   -- only works if you are in Limsa , Ul'dah or gridania inn
@@ -93,26 +93,26 @@
   
   MenderNpcTable =
   {
-      {"Zuzutyro"},
-      {"Erkenbaud"},
-      {"Leofrun"}
+      {"修理屋 シュシュザノ"},
+      {"修理屋 アーケンボード"},
+      {"修理屋 レオフルン"}
   }
   
   InNpcTable =
   {
-      {"Otopa Pottopa"},
-      {"Antoinaut"},
-      {"Mytesyn"}
+      {"オトパ・ポットパ"},
+      {"アントアノ"},
+      {"ミートシン"}
   }
   
   TargetTable=
   {
-      {"Right Foreleg"},
-      {"Left Foreleg"},
-      {"The Manipulator"},
-      {"Panzer Doll"},
-      {"Jagd Doll"},
-      {"Treasure Coffer"}
+      {"右前主脚"},
+      {"左前主脚"},
+      {"マニピュレーター"},
+      {"パンツァードール"},
+      {"ヤークトドール"},
+      {"宝箱"}
   }
   
   function setSNDPropertyIfNotSet(propertyName)
@@ -181,7 +181,7 @@
   function Repair()
       if NeedsRepair(RepairAmount) and SelfRepair then
           while not IsAddonVisible("Repair") do
-              yield("/generalaction repair")
+              yield("/generalaction 修理")
               yield("/wait 0.5")
           end
           yield("/pcall Repair true 0")
@@ -269,14 +269,14 @@
               SetDFUnrestricted(true)
               yield("/pcall ContentsFinder true 1 6")
               yield("/wait 0.1")
-              if GetNodeText("ContentsFinder", 14) == "Alexander - The Burden of the Father" then 
+              if GetNodeText("ContentsFinder", 14) == "機工城アレキサンダー：起動編4" then 
               else
                   yield("/pcall ContentsFinder true 12 1")
                   for i = 1, 501 do
                       if IsAddonReady("ContentsFinder") then
                           yield("/pcall ContentsFinder true 3 "..i)
                           yield("/wait 0.1")
-                          if GetNodeText("ContentsFinder", 14) == "Alexander - The Burden of the Father" then
+                          if GetNodeText("ContentsFinder", 14) == "機工城アレキサンダー：起動編4" then
                               FoundTheDuty = true
                               break 
                           end
@@ -290,7 +290,7 @@
                   FirstTime = false
               end
           end
-          if GetNodeText("ContentsFinder", 14) == "Alexander - The Burden of the Father" then
+          if GetNodeText("ContentsFinder", 14) == "機工城アレキサンダー：起動編4" then
               yield("/pcall ContentsFinder true 12 0")
               while WhereAmI == GetZoneID() do
                   if IsAddonVisible("ContentsFinderConfirm") then
@@ -303,7 +303,7 @@
               yield("Select the correct Duty and start the script again.")
               yield("/snd stop")
           end
-          LogInfo("[Alexander - The Burden of the Father]CorrectSelect is completed.")
+          LogInfo("[機工城アレキサンダー：起動編4]CorrectSelect is completed.")
           PlayerTest()
       end
   end
@@ -365,16 +365,16 @@
   
   function DoAR()
       if ARRetainersWaitingToBeProcessed() and ReasignRetainers then
-          yield("/target Summoning Bell")
+          yield("/target 呼び鈴")
           yield("/wait 0.1")
-          if GetTargetName() == "Summoning Bell" and GetDistanceToTarget() <= 4.5 then
+          if GetTargetName() == "呼び鈴" and GetDistanceToTarget() <= 4.5 then
               yield("/interact")
               while ARRetainersWaitingToBeProcessed() do
                   yield("/wait 1")
               end
               GetOUT()
           else
-              yield("No Summoning Bell")
+              yield("No 呼び鈴")
           end
       end
       if GetTargetName() ~= "" then
@@ -467,8 +467,8 @@
                 if GetCharacterCondition(45) then
                     yield("/wait 1")
                 else
-                    if GetTargetName() ~= "aetheryte" then
-                        yield("/target aetheryte")
+                    if GetTargetName() ~= "エーテライト" then
+                        yield("/target エーテライト")
                     elseif GetDistanceToTarget() > 7 then
                         local X = GetTargetRawXPos()
                         local Y = GetTargetRawYPos()
@@ -505,8 +505,8 @@
                 if GetCharacterCondition(45) then
                     yield("/wait 1")
                 else
-                    if GetTargetName() ~= "aetheryte" then
-                        yield("/target aetheryte")
+                    if GetTargetName() ~= "エーテライト" then
+                        yield("/target エーテライト")
                     elseif GetDistanceToTarget() > 7 then
                         local X = GetTargetRawXPos()
                         local Y = GetTargetRawYPos()
@@ -582,7 +582,7 @@
           yield("/wait 0.3")
           for i = 1, #TargetTable do
               yield("/target " .. TargetTable[i][1])
-              if GetTargetName() == "Treasure Coffer" then
+              if GetTargetName() == "宝箱" then
                   local ExpectedCount = Allcount() + 8
                   local Count = Allcount()
                   while Count < ExpectedCount do
